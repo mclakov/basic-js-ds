@@ -89,9 +89,24 @@ class BinarySearchTree {
 		return isDataFind;
 	}
 
-	remove(/* data */) {
-		throw new NotImplementedError('Not implemented');
-		// remove line with error and write your code here
+	remove(data) {
+
+		const removeFunction = (node) => {
+			if (node.data === data) {
+				if (!node.left) {
+					if (!node.right) {
+						node = null;
+					} else {
+						node = node.right;
+					}
+				} else {
+					if (!node.right) {
+						node = node.left;
+					}
+				}
+			}
+		}
+		this.traverse(this.rootNode, removeFunction);
 	}
 
 	min() {
