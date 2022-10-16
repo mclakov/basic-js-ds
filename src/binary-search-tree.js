@@ -68,8 +68,6 @@ class BinarySearchTree {
 		let isDataHas = false;
 
 		const hasFunction = (node) => {
-			console.log('node = ', node);
-
 			if (node.data === data) {
 				isDataHas = true;
 			}
@@ -79,9 +77,16 @@ class BinarySearchTree {
 	}
 
 
-	find(/* data */) {
-		throw new NotImplementedError('Not implemented');
-		// remove line with error and write your code here
+	find(data) {
+		let isDataFind = null;
+
+		const findFunction = (node) => {
+			if (node.data === data) {
+				isDataFind = node;
+			}
+		}
+		this.traverse(this.rootNode, findFunction)
+		return isDataFind;
 	}
 
 	remove(/* data */) {
