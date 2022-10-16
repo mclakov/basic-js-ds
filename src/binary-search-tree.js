@@ -95,13 +95,27 @@ class BinarySearchTree {
 	}
 
 	min() {
-		throw new NotImplementedError('Not implemented');
-		// remove line with error and write your code here
+		let isMin = this.rootNode.data || null;
+
+		const minFunction = (node) => {
+			if (node.data < isMin) {
+				isMin = node.data;
+			}
+		}
+		this.traverse(this.rootNode, minFunction)
+		return isMin;
 	}
 
 	max() {
-		throw new NotImplementedError('Not implemented');
-		// remove line with error and write your code here
+		let isMax = this.rootNode.data || null;
+
+		const maxFunction = (node) => {
+			if (node.data > isMax) {
+				isMax = node.data;
+			}
+		}
+		this.traverse(this.rootNode, maxFunction)
+		return isMax;
 	}
 }
 
