@@ -11,15 +11,6 @@ class BinarySearchTree {
 		this.rootNode = null;
 	}
 
-//
-//   class Node {
-//   constructor(data) {
-//     this.data = data;
-//     this.left = null;
-//     this.right = null;
-//   }
-// }
-
 	root() {
 		return this.rootNode;
 	}
@@ -43,7 +34,7 @@ class BinarySearchTree {
 				currentNode = currentNode.left;
 			} else {
 				if (!currentNode.right) {
-					currentNode.right  = newNode;
+					currentNode.right = newNode;
 					return;
 				}
 				currentNode = currentNode.right;
@@ -90,23 +81,53 @@ class BinarySearchTree {
 	}
 
 	remove(data) {
+		if (this.rootNode === null) {
+			return null;
+		}
 
-		const removeFunction = (node) => {
-			if (node.data === data) {
-				if (!node.left) {
-					if (!node.right) {
-						node = null;
-					} else {
-						node = node.right;
-					}
-				} else {
-					if (!node.right) {
-						node = node.left;
-					}
+		const findMinNode = (node) => {
+			if (node.left === null) {
+				return node;
+			}
+			return findMinNode(node.left);
+		}
+
+
+		const removeNode = (currentNode, data) => {
+			if (currentNode.data === data) {
+				if (currentNode.left === null && currentNode.right === null) {
+					return null;
 				}
+				if (currentNode.left === null) {
+					return currentNode.right;
+				}
+				if (currentNode.right === null) {
+					return currentNode.left;
+				}
+				const minNode = findMinNode(currentNode.right);
+				currentNode.data = minNode.data;
+				currentNode.right = removeNode(currentNode.right,minNode.data);
+				return currentNode;
+			}
+
+			if (data < currentNode.data) {
+				if (currentNode.left === null) {
+					return currentNode;
+				}
+				currentNode.left = removeNode(currentNode.left, data);
+				return currentNode;
+			}
+
+			if (data > currentNode.data) {
+				if (currentNode.right === null) {
+					return currentNode;
+				}
+
+				currentNode.right = removeNode(currentNode.right, data);
+				return currentNode;
 			}
 		}
-		this.traverse(this.rootNode, removeFunction);
+		this.rootNode = removeNode(this.rootNode, data);
 	}
 
 	min() {
